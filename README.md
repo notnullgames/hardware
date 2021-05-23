@@ -67,6 +67,8 @@ Alternate idea: look into [firmata](https://www.arduino.cc/en/reference/firmata)
 
 Here is [info about interrupts on pi](https://roboticsbackend.com/raspberry-pi-gpio-interrupts-tutorial/)
 
+Here is [info about reading all inputs at once, efficiently](https://forum.arduino.cc/t/read-all-digital-input-in-arduino-once-time-and-sent-theme-to-serial/277860/3).
+
 Basic flow:
 
 - service pi request for pin-values & power-level
