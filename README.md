@@ -42,7 +42,7 @@ LiPo at 3.7V roughly reads these voltages (read from arduino A pin):
 3.6 V --- 000%
 ```
 
-Arduino code to read/scale value:
+Simple Arduino code to read/scale value:
 
 ```cpp
 int value = 0;
@@ -59,9 +59,18 @@ void loop(){
 }
 ```
 
-### arduino i2c
+### arduino
 
 Read more [here](https://www.arduino.cc/en/Tutorial/LibraryExamples/MasterWriter). We are going to make arduino speak it's own i2c for different inputs, on request, and also fire an input-interupt pin, so we can respond on pi async.
 
+Alternate idea: look into [firmata](https://www.arduino.cc/en/reference/firmata) to normalize & simplifiy arduino-side, and speak over serial to arduino. This would allow us to keep more code on pi-side (no i2c protocol translation or interrupt stuff), and allow easier modification of hardware-layer.
+
 Here is [info about interrupts on pi](https://roboticsbackend.com/raspberry-pi-gpio-interrupts-tutorial/)
+
+Basic flow:
+
+- service pi request for pin-values & power-level
+- tight loop - check all inputs, toggle interrupt on change to tell pi, keep values in cache (look into arduino interrupts to just pass on the interrupt then read full value on i2c request) 
+- slow loop - check voltage, cache value
+- update pi power-pin if power is too low or there was a "turn off" signal from power button input
 
